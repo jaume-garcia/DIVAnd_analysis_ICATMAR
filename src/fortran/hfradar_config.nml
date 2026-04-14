@@ -1,0 +1,63 @@
+! ============================================================================
+! Archivo de configuración de ejemplo para HF Radar Processor
+! ============================================================================
+! 
+! Este archivo muestra cómo puedes modificar el programa principal
+! para aceptar parámetros desde un archivo de configuración
+!
+! Para implementar esto, necesitarías añadir una rutina de lectura
+! de configuración en el módulo o en el programa principal.
+!
+
+! Rutas de archivos
+&file_paths
+    input_base_path = '/home/jgarcia/Projects/mar_catala/radial_reconstruction/data/data_radials_10_days/filtered_radials_medsea/'
+    output_base_path = '/home/jgarcia/Projects/mar_catala/radial_reconstruction/data/data_totals_10_days_all_grid/'
+    grid_file = '/home/jgarcia/Projects/mar_catala/radial_reconstruction/data/real_data_radar/hfradar_totals_grid_icatmar.nc'
+    
+    ! Patrones de nombres de archivo
+    input_prefix = 'medsea_filtered_radials6_'
+    input_suffix = '.txt'
+    output_prefix = 'medsea_totals_'
+    output_suffix = '_all_grid.txt'
+/
+
+! Parámetros de procesamiento
+&processing_params
+    max_distance = 6.0          ! Radio de interpolación en km
+    min_observations = 2        ! Mínimo número de observaciones requeridas
+    min_antennas = 2           ! Mínimo número de antenas requeridas
+/
+
+! Rango de archivos a procesar
+&file_range
+    start_index = 0            ! Índice inicial
+    end_index = 0              ! Índice final
+    index_format = '(I3.3)'    ! Formato del índice (ej: 000, 001, 002)
+/
+
+! Opciones de salida
+&output_options
+    verbose = .true.           ! Salida detallada
+    print_every_n_points = 1000 ! Imprimir progreso cada N puntos
+    write_statistics = .true.  ! Escribir estadísticas al final
+/
+
+! ============================================================================
+! Notas de uso:
+! ============================================================================
+! 
+! 1. Para usar este archivo de configuración, necesitarías modificar
+!    hfradar_main.f90 para leer estos namelists:
+!
+!    namelist /file_paths/ input_base_path, output_base_path, grid_file, ...
+!    namelist /processing_params/ max_distance, min_observations, ...
+!    
+!    open(10, file='hfradar_config.nml', status='old')
+!    read(10, nml=file_paths)
+!    read(10, nml=processing_params)
+!    close(10)
+!
+! 2. Ejemplo de implementación completa disponible bajo demanda
+!
+! ============================================================================
