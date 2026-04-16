@@ -1,4 +1,4 @@
-# DIVAnd Analysis — ICATMAR HF Radar Gap Filling
+# Variational Analysis and Gap Filling — ICATMAR HF Radar 
 
 This repository contains a multi-language scientific pipeline (Python, Julia, Fortran) for **reconstructing and gap-filling HF radar surface current velocity fields** in the Catalan Sea (NW Mediterranean) using the **DIVAnd** (Data-Interpolating Variational Analysis in n Dimensions) algorithm. Reconstructed fields are validated against Copernicus MEDSEA model reanalysis data used as ground truth.
 
@@ -275,8 +275,8 @@ Files should follow the naming pattern already present in the repository, e.g.: 
 
 Download hourly radial velocity files (`.ruv` format) from the **ICATMAR Operational Oceanography Service**:
 
-- **Portal:** [https://www.icatmar.cat/observacions/](https://www.icatmar.cat/observacions/)
-- **Contact / data access:** [https://www.icatmar.cat/en/](https://www.icatmar.cat/en/)
+- **Portal:** [https://www.icatmar.cat/servei-ftp/](https://www.icatmar.cat/servei-ftp/)
+- **Contact / data access:** info@icatmar.cat
 
 The ICATMAR network consists of seven coastal HF radar antennas (AREN, BEGU, CREU, GNST, PBCN, TOSS, and one at the Port of Barcelona). Raw radial files are in CODAR `.ruv` format and follow the naming convention:
 
@@ -515,7 +515,7 @@ python plot_scripts/plot_medsea_10_days.py
 
 ## Acknowledgments
 
-This work was developed within the Catalan Institute for Ocean Governance Research (ICATMAR) and was supported by the European Maritime, Fisheries and Aquaculture Fund (EMFAF) with the institutional support of the grant *Severo Ochoa Centre of Excellence* accreditation (CEX2024-001494-S) funded by AEI 10.13039/501100011033.
+This work was developed within the Catalan Institute for Ocean Governance Research (ICATMAR) and was supported by the European Maritime, Fisheries and Aquaculture Fund (EMFAF) with the institutional support of the grant *Severo Ochoa Centre of Excellence* accreditation (CEX2024-001494-S) funded by AEI 10.13039/501100011033. The ICATMAR is a cooperative organization between the Government of Catalonia and the Spanish National Research Council through the Institute of Marine Sciences.
 
 This README was written with the assistance of Claude (Anthropic).
 

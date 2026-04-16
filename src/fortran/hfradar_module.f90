@@ -44,8 +44,8 @@ module HFradar_data
         real(8) :: latitude     ! Target grid latitude
         real(8) :: u_total      ! Synthesized Eastward component (u)
         real(8) :: v_total      ! Synthesized Northward component (v)
-        real(8) :: modulo       ! Vector magnitude (speed)
-        real(8) :: angulo       ! Vector direction (oceanographic convention)
+        real(8) :: speed       ! Vector magnitude (speed)
+        real(8) :: direction       ! Vector direction (oceanographic convention)
         real(8) :: gdop         ! Geometric Dilution of Precision
         integer :: n_obs        ! Number of contributing radial observations
         integer :: n_sites      ! Number of contributing radar sites
@@ -469,8 +469,8 @@ contains
                         temp_results(n_results)%latitude = grid_lat
                         temp_results(n_results)%u_total = u_vel
                         temp_results(n_results)%v_total = v_vel
-                        temp_results(n_results)%modulo = vel_mag
-                        temp_results(n_results)%angulo = vel_dir
+                        temp_results(n_results)%speed = vel_mag
+                        temp_results(n_results)%direction = vel_dir
                         temp_results(n_results)%gdop = gdop
                         temp_results(n_results)%n_obs = n_obs
                         temp_results(n_results)%n_sites = n_antennas
@@ -530,8 +530,8 @@ contains
                 results(i)%latitude, '	', &
                 results(i)%u_total, '	', &
                 results(i)%v_total, '	', &
-                results(i)%modulo, '	', &
-                results(i)%angulo, '	', &
+                results(i)%speed, '	', &
+                results(i)%direction, '	', &
                 results(i)%gdop
         end do
         
@@ -617,16 +617,16 @@ contains
         ! Step 4: Statistical Evaluation
         sum_vel = 0.0d0
         sum_sq = 0.0d0
-        max_vel = results(1)%modulo
-        min_vel = results(1)%modulo
+        max_vel = results(1)%speed
+        min_vel = results(1)%speed
         mean_obs = 0.0d0
         mean_sites = 0.0d0
         
         do i = 1, n_results
-            sum_vel = sum_vel + results(i)%modulo
-            sum_sq = sum_sq + results(i)%modulo**2
-            if (results(i)%modulo > max_vel) max_vel = results(i)%modulo
-            if (results(i)%modulo < min_vel) min_vel = results(i)%modulo
+            sum_vel = sum_vel + results(i)%speed
+            sum_sq = sum_sq + results(i)%speed**2
+            if (results(i)%speed > max_vel) max_vel = results(i)%speed
+            if (results(i)%speed < min_vel) min_vel = results(i)%speed
             mean_obs = mean_obs + real(results(i)%n_obs)
             mean_sites = mean_sites + real(results(i)%n_sites)
         end do
