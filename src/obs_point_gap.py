@@ -393,7 +393,7 @@ for i in range(n_times):
     lat_array     = df["latitude"].values
     u_array       = df["u_total"].values
     v_array       = df["v_total"].values
-    speed_array   = df["modulo"].values
+    speed_array   = df["speed"].values
     gdop_array    = df["gdop"].values
 
     # Filter by GDOP and maximum speed
@@ -501,7 +501,7 @@ for i in range(n_times):
         ax_pts.legend(loc="lower left", fontsize=8, framealpha=0.9)
         ax_pts.set_title("First small and large gap points within bbox", fontsize=11)
 
-        output_pts = "/home/jgarcia/Projects/mar_catala/radial_reconstruction/figures/gener_2026/gaps/first_gap_bbox.png"
+        output_pts = "../figures/january_2026/gaps/first_gap_bbox.png"
         fig_pts.savefig(output_pts, dpi=150, bbox_inches="tight")
         plt.close(fig_pts)
         print(f"  Map saved to: {output_pts}")

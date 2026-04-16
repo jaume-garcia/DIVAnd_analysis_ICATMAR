@@ -90,8 +90,8 @@ for i = 1:264
     lat_array = df.latitude
     u_array = df.u_total 
     v_array = df.v_total 
-    mod_vel_array = df.modulo 
-    angle_array = df.angulo
+    mod_vel_array = df.speed 
+    angle_array = df.drection
     gdop_array = df.gdop
     
     # Filter outliers and non-physical velocities
@@ -255,9 +255,6 @@ println("\nBootstrap file saved at: ", output_bootstrap)
 # ------------------------------------------------------------------------------------
 # GLOBAL STATISTICS: MEAN AND STANDARD DEVIATION OF RMSE
 # ------------------------------------------------------------------------------------
-
-using Statistics
-using Printf
 
 rmse_LS  = results_matrix[:, 2]
 rmse_rad = results_matrix[:, 3]

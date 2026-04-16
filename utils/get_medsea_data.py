@@ -370,7 +370,7 @@ end_date = '20260124'
 
 # Output file path for the concatenated dataset
 output_file_all = (
-    '../data/gener_2026/data_medsea/all_data_january_2026.nc'
+    '../data/january_2026/data_medsea/all_data_january_2026.nc'
 )
 
 # Process all individual time steps without averaging

@@ -109,8 +109,8 @@ for i = 1:264
     lat_array = df.latitude
     u_array = df.u_total
     v_array = df.v_total 
-    mod_vel_array = df.modulo 
-    angle_array = df.angulo
+    mod_vel_array = df.speed 
+    angle_array = df.direction
     gdop_array = df.gdop
    
     # Filter outliers and non-physical velocities

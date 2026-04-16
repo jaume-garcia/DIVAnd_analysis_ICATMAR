@@ -127,233 +127,6 @@ function snapshot_nanstd(arr, dim)
 end
 
 
-"""
-    plot_colormesh_triple(xi, yi, diff1, diff2, diff3, mask,
-                          title1, title2, title3, outfile_name)
-
-Creates a three-panel vertical colour-mesh figure (one panel per
-reconstruction method) using a PlateCarree projection. A single shared
-colour bar is placed below the bottom panel.
-
-# Arguments
-- `xi, yi`           : 2D longitude and latitude grids
-- `diff1, diff2, diff3` : Scalar fields to display (one per method)
-- `mask`             : Land/sea mask (values > 0.5 = ocean)
-- `title1..3`        : Panel titles (currently unused; kept for API compatibility)
-- `outfile_name`     : Output filepath (with extension)
-"""
-function plot_colormesh_triple(xi, yi, diff1, diff2, diff3, mask,
-                                title1, title2, title3, outfile_name)
-    fig = figure(figsize=(12, 18))
-
-    water_mask = mask .> 0.5
-    land_mask  = mask .<= 0.5
-
-    # ── Top panel ────────────────────────────────────────────────────
-    ax1 = subplot(3, 1, 1, projection=ccrs.PlateCarree())
-    ax1.set_aspect("equal", adjustable="box")
-
-    pc1 = ax1.pcolormesh(xi, yi, diff1, shading="auto", cmap="viridis",
-                          vmin=-0.2, vmax=0.2,
-                          transform=ccrs.PlateCarree(), zorder=1)
-
-    ax1.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                 transform=ccrs.PlateCarree(), zorder=1)
-    ax1.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                 transform=ccrs.PlateCarree(), zorder=2)
-
-    gl1 = ax1.gridlines(draw_labels=true, dms=true,
-                         x_inline=false, y_inline=false,
-                         linewidth=0.5, alpha=0.5, linestyle="--")
-    gl1.top_labels    = true
-    gl1.bottom_labels = false
-    gl1.left_labels   = true
-    gl1.right_labels  = true
-
-    ax1.tick_params(axis="both", which="major", labelsize=20)
-    ax1.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    # ── Middle panel ─────────────────────────────────────────────────
-    ax2 = subplot(3, 1, 2, projection=ccrs.PlateCarree())
-    ax2.set_aspect("equal", adjustable="box")
-
-    pc2 = ax2.pcolormesh(xi, yi, diff2, shading="auto", cmap="viridis",
-                          vmin=-0.2, vmax=0.2,
-                          transform=ccrs.PlateCarree(), zorder=1)
-
-    ax2.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                 transform=ccrs.PlateCarree(), zorder=1)
-    ax2.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                 transform=ccrs.PlateCarree(), zorder=2)
-
-    gl2 = ax2.gridlines(draw_labels=true, dms=true,
-                         x_inline=false, y_inline=false,
-                         linewidth=0.5, alpha=0.5, linestyle="--")
-    gl2.top_labels    = false
-    gl2.bottom_labels = false
-    gl2.left_labels   = true
-    gl2.right_labels  = true
-
-    ax2.tick_params(axis="both", which="major", labelsize=20)
-    ax2.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    # ── Bottom panel ─────────────────────────────────────────────────
-    ax3 = subplot(3, 1, 3, projection=ccrs.PlateCarree())
-    ax3.set_aspect("equal", adjustable="box")
-
-    pc3 = ax3.pcolormesh(xi, yi, diff3, shading="auto", cmap="viridis",
-                          vmin=-0.2, vmax=0.2,
-                          transform=ccrs.PlateCarree(), zorder=1)
-
-    ax3.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                 transform=ccrs.PlateCarree(), zorder=1)
-    ax3.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                 transform=ccrs.PlateCarree(), zorder=2)
-
-    gl3 = ax3.gridlines(draw_labels=true, dms=true,
-                         x_inline=false, y_inline=false,
-                         linewidth=0.5, alpha=0.5, linestyle="--")
-    gl3.top_labels    = false
-    gl3.bottom_labels = true
-    gl3.left_labels   = true
-    gl3.right_labels  = true
-
-    ax3.tick_params(axis="both", which="major", labelsize=20)
-    ax3.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    tight_layout()
-
-    # Shared colour bar placed below the bottom panel
-    pos    = ax3.get_position()
-    cbar_ax = fig.add_axes([pos.x0, pos.y0 - 0.03, pos.width, 0.015])
-    cb = colorbar(pc3, cax=cbar_ax, orientation="horizontal")
-    cb.set_label("m/s", fontsize=12)
-
-    savefig(outfile_name)
-    close()
-end
-
-
-"""
-    plot_colormesh(xi, yi, diff, mask, title_name, outfile_name;
-                   show_colorbar=true)
-
-Creates a single-panel colour-mesh map of a scalar velocity difference field
-using a diverging RdBu_r colour map (range ±0.2 m/s).
-
-# Arguments
-- `diff`          : 2D scalar field to display
-- `show_colorbar` : Whether to add a horizontal colour bar (default: true)
-(remaining arguments same as plot_colormesh_triple)
-"""
-function plot_colormesh(xi, yi, diff, mask, title_name, outfile_name; show_colorbar=true)
-    fig = figure(figsize=(12, 12))
-    ax  = subplot(111, projection=ccrs.PlateCarree())
-    ax.set_aspect("equal", adjustable="box")
-
-    pc = ax.pcolormesh(xi, yi, diff, shading="auto",
-                        cmap=ColorMap("RdBu_r"), vmin=-0.2, vmax=0.2,
-                        transform=ccrs.PlateCarree(), zorder=1)
-
-    if show_colorbar
-        cb = colorbar(pc, ax=ax, orientation="horizontal", pad=0.05, shrink=0.8)
-        cb.set_label("m/s")
-    end
-
-    water_mask = mask .> 0.5
-    land_mask  = mask .<= 0.5
-    ax.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                transform=ccrs.PlateCarree(), zorder=1)
-    ax.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                transform=ccrs.PlateCarree(), zorder=2)
-    ax.gridlines(draw_labels=true, dms=true, x_inline=false, y_inline=false,
-                 linewidth=0.5, alpha=0.5, linestyle="--")
-
-    ax.tick_params(axis="both", which="major", labelsize=20)
-    ax.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    savefig(outfile_name)
-    close()
-end
-
-
-"""
-    plot_colormesh_vel_rel(xi, yi, diff, mask, title_name, outfile_name;
-                           show_colorbar=true)
-
-Creates a single-panel colour-mesh map of a relative velocity difference field
-using a diverging RdBu_r colour map (range ±1, dimensionless).
-
-Identical to `plot_colormesh` except the colour range is ±1 (suitable for
-relative/normalised differences).
-"""
-function plot_colormesh_vel_rel(xi, yi, diff, mask, title_name, outfile_name; show_colorbar=true)
-    fig = figure(figsize=(12, 12))
-    ax  = subplot(111, projection=ccrs.PlateCarree())
-    ax.set_aspect("equal", adjustable="box")
-
-    pc = ax.pcolormesh(xi, yi, diff, shading="auto",
-                        cmap=ColorMap("RdBu_r"), vmin=-1., vmax=1.,
-                        transform=ccrs.PlateCarree(), zorder=1)
-
-    if show_colorbar
-        cb = colorbar(pc, ax=ax, orientation="horizontal", pad=0.05, shrink=0.8)
-    end
-
-    water_mask = mask .> 0.5
-    land_mask  = mask .<= 0.5
-    ax.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                transform=ccrs.PlateCarree(), zorder=1)
-    ax.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                transform=ccrs.PlateCarree(), zorder=2)
-    ax.gridlines(draw_labels=true, dms=true, x_inline=false, y_inline=false,
-                 linewidth=0.5, alpha=0.5, linestyle="--")
-
-    ax.tick_params(axis="both", which="major", labelsize=20)
-    ax.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    savefig(outfile_name)
-    close()
-end
-
-
-"""
-    plot_colormesh_std(xi, yi, diff, mask, title_name, outfile_name;
-                       show_colorbar=true)
-
-Creates a single-panel colour-mesh map of a standard deviation field
-using a sequential viridis colour map (range 0–0.05 m/s).
-"""
-function plot_colormesh_std(xi, yi, diff, mask, title_name, outfile_name; show_colorbar=true)
-    fig = figure(figsize=(12, 12))
-    ax  = subplot(111, projection=ccrs.PlateCarree())
-    ax.set_aspect("equal", adjustable="box")
-
-    pc = ax.pcolormesh(xi, yi, diff, shading="auto",
-                        cmap=ColorMap("viridis"), vmin=0., vmax=0.05,
-                        transform=ccrs.PlateCarree(), zorder=1)
-
-    if show_colorbar
-        cb = colorbar(pc, ax=ax, orientation="horizontal", pad=0.05, shrink=0.8)
-        cb.set_label("m/s")
-    end
-
-    water_mask = mask .> 0.5
-    land_mask  = mask .<= 0.5
-    ax.contourf(xi, yi, land_mask,  levels=[0.5, 1.0], cmap="copper", alpha=1.0,
-                transform=ccrs.PlateCarree(), zorder=1)
-    ax.contourf(xi, yi, water_mask, levels=[0.5, 1.0], cmap="Greys",  alpha=0.1,
-                transform=ccrs.PlateCarree(), zorder=2)
-    ax.gridlines(draw_labels=true, dms=true, x_inline=false, y_inline=false,
-                 linewidth=0.5, alpha=0.5, linestyle="--")
-
-    ax.tick_params(axis="both", which="major", labelsize=20)
-    ax.set_extent([1.2, 4.26, 40.5, 43.06])
-
-    savefig(outfile_name)
-    close()
-end
-
 # ------------------------------------------------------------------------------------
 # DATA LOADING
 # ------------------------------------------------------------------------------------
@@ -376,7 +149,6 @@ lat_grid_LS, lon_grid_LS = meshgrid(lat_LS, lon_LS)
 
 # --- Copernicus MEDSEA model (ground truth) ---
 file_cop = "../../data/january_2026/data_medsea/all_data_january_2026.nc"
-# file_cop = "../../data/february_2025/data_medsea/all_data_february_2025.nc"
 
 lon_cop, lat_cop, u_cop, v_cop = rd.read_nc_vel(file_cop, "lon", "lat", "u_data", "v_data", "0:")
 
@@ -399,7 +171,6 @@ println("COPERNICUS read")
 mask_interp = ma.interp_grid_eta(xi, yi, mask, lon_grid_LS, lat_grid_LS, mask_coarse_grid=[])
 
 divand_file = "../../data/january_2026/divand/divand_field.nc"
-# divand_file = "../../data/february_2025/data_divand_10_days/divand_field.nc"
 
 # Read all DIVAnd velocity fields from the NetCDF file in one block
 data = NCDataset(divand_file, "r") do ds
@@ -468,8 +239,6 @@ for i = 1:n_times
     # ── Least Squares total velocities for snapshot i ────────────────
     file_tuv = ("../../data/january_2026/totals_10_days/medsea_totals_"
                 * lpad(string(i - 1), 3, '0') * "_all_grid.txt")
-    # file_tuv = ("../../data/february_2025/totals_10_days/medsea_totals_"
-    #             * lpad(string(i - 1), 3, '0') * "_all_grid.txt")
 
     df = CSV.read(file_tuv, DataFrame; delim='\t', comment="#", ignorerepeated=true)
 

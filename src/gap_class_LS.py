@@ -337,7 +337,7 @@ for i in range(n_times):
     print(f"ITERATION ... {i+1}")
     
     # TOTAL VELOCITIES (L3) - Read Least Squares total velocity file
-    # file_tuv = f"../data/february_2025/totals_10_days/medsea_totals_{i:03d}_all_grid.txt"  # Alternative
+    
     file_tuv = f"../data/january_2026/totals_10_days/medsea_totals_{i:03d}_all_grid.txt"
     
     # Read tab-separated data (lines starting with '#' are comments)
@@ -348,8 +348,8 @@ for i in range(n_times):
     lat_array = df['latitude'].values
     u_array = df['u_total'].values
     v_array = df['v_total'].values
-    mod_vel_array = df['modulo'].values
-    angle_array = df['angulo'].values
+    mod_vel_array = df['speed'].values
+    angle_array = df['direction'].values
     gdop_array = df['gdop'].values
     
     # Filter by GDOP (Geometric Dilution of Precision) and velocity magnitude

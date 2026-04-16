@@ -88,7 +88,6 @@ mask_cop  = rd.read_mask(file_mask)
 # COPERNICUS MEDSEA SOURCE FILE AND PLOT PARAMETERS
 # ------------------------------------------------------------------------------------
 
-# file_cop = '../../data/february_2025/data_medsea/all_data_february_2025.nc'
 file_cop = '../../data/january_2026/data_medsea/all_data_january_2026.nc'
 
 pdt   = 1       # Arrow decimation factor

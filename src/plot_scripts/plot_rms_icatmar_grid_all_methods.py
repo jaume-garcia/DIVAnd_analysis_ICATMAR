@@ -87,7 +87,7 @@ def creating_dates(data, start_date_str='2025-02-05 00:00:00'):
     return data
 
 
-def plot_u_rmse(data, output_file='../../figures/february_2025/icatmar_grid/statistics/u_rmse.png'):
+def plot_u_rmse(data, output_file='../../figures/january_2026/statistics/u_rmse.png'):
     """Plots the RMSE time series for the east (U) velocity component."""
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(data['date'], data['u_rmse_rad'], label='DIVAnd rad', linewidth=1.5, alpha=0.8)
@@ -105,7 +105,7 @@ def plot_u_rmse(data, output_file='../../figures/february_2025/icatmar_grid/stat
     print(f"Saved: {output_file}")
 
 
-def plot_v_rmse(data, output_file='../../figures/february_2025/icatmar_grid/statistics/v_rmse.png'):
+def plot_v_rmse(data, output_file='../../figures/january_2026/statistics/v_rmse.png'):
     """Plots the RMSE time series for the north (V) velocity component."""
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(data['date'], data['v_rmse_rad'], label='DIVAnd rad', linewidth=1.5, alpha=0.8)
@@ -123,7 +123,7 @@ def plot_v_rmse(data, output_file='../../figures/february_2025/icatmar_grid/stat
     print(f"Saved: {output_file}")
 
 
-def plot_total_rmse(data, output_file='../../figures/february_2025/icatmar_grid/statistics/total_rmse.png'):
+def plot_total_rmse(data, output_file='../../figures/january_2026/statistics/total_rmse.png'):
     """
     Plots the total RMSE time series for all three reconstruction methods
     with daily major ticks and 12-hourly minor ticks on the x-axis.
@@ -179,7 +179,7 @@ def plot_total_rmse(data, output_file='../../figures/february_2025/icatmar_grid/
     print(f"Saved: {output_file}")
 
 
-def plot_total_mse(data, output_file='../../figures/february_2025/icatmar_grid/statistics/total_mse.png'):
+def plot_total_mse(data, output_file='../../figures/january_2026/statistics/total_mse.png'):
     """Plots the total MSE time series for all three reconstruction methods."""
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(data['date'], data['total_mse_rad'], label='DIVAnd rad', linewidth=1.5, alpha=0.8)
@@ -265,7 +265,7 @@ def print_statistics(data):
 if __name__ == "__main__":
 
     # Input file path
-    file_rms = "../../data/february_2025/rms_all_grid/all_rms_grid_icatmar.txt"
+    file_rms = "../../data/january_2026/stats_data/all_rms_grid_icatmar.txt"
 
     # Start date for the time axis
     date_ini = '2026-01-14 00:00:00'

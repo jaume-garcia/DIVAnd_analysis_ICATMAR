@@ -116,8 +116,8 @@ for i in range(n_times):
     lat_array = df["latitude"].values
     u_array = df["u_total"].values
     v_array = df["v_total"].values
-    speed_array = df["modulo"].values
-    angle_array = df["angulo"].values
+    speed_array = df["speed"].values
+    angle_array = df["direction"].values
     gdop_array = df["gdop"].values
 
     # Filter by GDOP and maximum speed

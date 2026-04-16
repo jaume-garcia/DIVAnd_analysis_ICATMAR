@@ -203,8 +203,8 @@ for i = 1:n_times
     lat_array = df.latitude
     u_array = df.u_total
     v_array = df.v_total
-    speed_array = df.modulo
-    angle_array = df.angulo
+    speed_array = df.speed
+    angle_array = df.direction
     gdop_array = df.gdop
     
     # Filter by GDOP and maximum speed

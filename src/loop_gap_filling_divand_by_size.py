@@ -339,7 +339,7 @@ for i in range(n_times):
     lat_array = df["latitude"].values
     u_array = df["u_total"].values
     v_array = df["v_total"].values
-    speed_array = df["modulo"].values
+    speed_array = df["speed"].values
     gdop_array = df["gdop"].values
 
     valid_idx = (gdop_array <= 2.0) & (speed_array <= 1.2)
