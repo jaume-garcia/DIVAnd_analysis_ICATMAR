@@ -61,7 +61,7 @@ total_mask_t = total_mask_t_float
 print("SIZE TOTAL MASK =", total_mask_t.shape)
 
 # Interpolate bathymetry mask to LS grid
-mask_interp = ma.interp_grid_eta(xi, yi, mask, lon_grid_LS, lat_grid_LS, coarse_grid_mask=[])
+mask_interp = ma.interp_grid_eta(xi, yi, mask, lon_grid_LS, lat_grid_LS, mask_coarse_grid=[])
 
 # ------------------------------------------------------------------------------------
 # GAP CLASSIFICATION PARAMETERS
@@ -355,7 +355,7 @@ for i in range(n_times):
     # Interpolate Copernicus to LS grid
     u_cop_interp, v_cop_interp = ma.interp_grid_vel(
         lon_mesh_cop, lat_mesh_cop, u_cop_ts, v_cop_ts,
-        lon_grid_LS, lat_grid_LS, coarse_grid_mask=[], points_mode=False
+        lon_grid_LS, lat_grid_LS, mask_coarse_grid=[], points_mode=False
     )
 
     # Speed magnitudes
