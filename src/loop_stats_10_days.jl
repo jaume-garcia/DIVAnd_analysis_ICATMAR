@@ -285,7 +285,7 @@ for i = 1:n_times
     # FILTER BASED ON QUALITY (GDOP AND VELOCITY MAGNITUDE)
     ###########################################################################
 
-    valid_index = (df.gdop .<= 2.0) .& (df.modulo .<= 1.2)
+    valid_index = (df.gdop .<= 2.0) .& (df.speed .<= 1.2)
 
     lon_array = lon_array[valid_index]
     lat_array = lat_array[valid_index]
