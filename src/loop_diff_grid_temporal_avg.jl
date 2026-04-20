@@ -131,7 +131,7 @@ println("COPERNICUS data loaded")
 # INTERPOLATE BATHYMETRY MASK TO LS GRID
 # ------------------------------------------------------------------------------------
 
-mask_interp = ma.interp_grid_eta(xi, yi, mask, lon_grid_LS, lat_grid_LS, coarse_grid_mask=[])
+mask_interp = ma.interp_grid_eta(xi, yi, mask, lon_grid_LS, lat_grid_LS, mask_coarse_grid=[])
 
 # ------------------------------------------------------------------------------------
 # DIVAND RECONSTRUCTION DATA
@@ -225,7 +225,7 @@ for i = 1:n_times
     # Interpolate Copernicus to LS grid
     u_cop_interp, v_cop_interp = ma.interp_grid_vel(
         lon_mesh_cop, lat_mesh_cop, u_cop_ts, v_cop_ts,
-        lon_grid_LS, lat_grid_LS, coarse_grid_mask=[], points_mode=false
+        lon_grid_LS, lat_grid_LS, mask_coarse_grid=[], points_mode=false
     )
     
     # Speed magnitudes
