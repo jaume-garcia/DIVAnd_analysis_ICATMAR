@@ -411,9 +411,9 @@ for i in range(n_times):
     stats_large[i, :] = [i] + row(stats_large_rad) + row(stats_large_tot)
 
     # Print summary
-    for label, d_rad, d_tot in [("SMALL gaps", stats_small_rad, stats_small_tot),
+    for lbl, d_rad, d_tot in [("SMALL gaps", stats_small_rad, stats_small_tot),
                                 ("LARGE gaps", stats_large_rad, stats_large_tot)]:
-        print(f"\n  === {label} ===")
+        print(f"\n  === {lbl} ===")
         print(f"  N = {d_rad['N']}  (radial)  |  N = {d_tot['N']}  (total)")
         print(f"  avg_u   rad={d_rad['avg_u']:.6f}  tot={d_tot['avg_u']:.6f}  m/s")
         print(f"  avg_v   rad={d_rad['avg_v']:.6f}  tot={d_tot['avg_v']:.6f}  m/s")
