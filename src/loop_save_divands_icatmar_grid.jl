@@ -80,8 +80,8 @@ for i = 1:n_time
     lat_array = df.latitude
     u_array = df.u_total 
     v_array = df.v_total 
-    mod_vel_array = df.modulo 
-    angle_array = df.angulo
+    mod_vel_array = df.speed 
+    angle_array = df.direction
     gdop_array = df.gdop
 
     println("LENGTH TOTAL VELOCITIES L3 WITH JAUME LS (NO RESTRICTIONS) = ... ", length(u_array))
